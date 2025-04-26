@@ -1,0 +1,64 @@
+{% extends 'base/base.html' %}
+
+
+{% block content %}
+
+
+<div class='card'>
+    <h5 style="background-color: #5C5F7A; color: white; padding: 20px;">All Order's</h5>
+    <div class='card-body'>
+
+    <table class="table table-bordered">
+        <thead>
+            <th>Order ID</th>
+            <th>Seller</th>
+            <th>Customer</th>
+            <th>Products - Quantity</th>
+            <th>Total Amount</th>
+            <th>Paid Amount</th>
+            <th>Due Amount</th>
+            <th>Status</th>
+        </thead>
+        <tbody>
+            
+            {% for order_detail in order_details %}
+            <tr>
+                <td>{{order_detail.id}}</td>
+                <td>{{order_detail.seller}}</td>
+                <td>{{order_detail.customer}}</td>
+                <td>
+                    
+                    {% for item in order_detail.items.all %}
+                        {{item.product}}- {{item.quantity}},
+                    {% endfor %}
+                        
+                </td>
+                <td>{{order_detail.total_amount}}</td>
+                <td>{{order_detail.pay_amount}}</td>
+                <td>{{order_detail.due_amount}}</td>
+                <td>
+                
+               
+                        
+                {% if order_detail.status == "Completed" %}
+                {{ order_detail.status }}
+                {% else %}
+                <a href="{% url 'make_payment' order_detail.id %}"><button class="btn btn-outline-success btn-sm px-4">Pay</button></a> 
+                {% endif %}
+           
+                </td>
+          
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+
+    </div>
+    
+</div>
+
+
+
+
+{% endblock content %}

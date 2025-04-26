@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="card">
+      <div class="card-header py-3">
+        <h5 class="card-title">Payment Details</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <p><strong>Order ID:</strong> {{ order_detail.id }}</p>
+            <p><strong>Customer Name:</strong> {{ order_detail.customer.name }}</p>
+            <p><strong>Total Amount:</strong> {{ order_detail.total_amount }} BDT</p>
+            <p><strong>Due Amount:</strong> {{ order_detail.due_amount }} BDT</p>
+            <p><strong>Paid Amount:</strong> {{ order_detail.pay_amount }} BDT</p>
+          </div>
+          <div class="col-md-6">
+            <form method="post" action="">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="newPaymentAmount">New Payment Amount:</label>
+                <input type="number" class="form-control" id="newPaymentAmount" name="new_payment_amount" required>
+              </div>
+              <button type="submit" class="btn btn-primary mt-3">Make Payment</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+{% endblock content %}
